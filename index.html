@@ -71,6 +71,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 /* HERO */
 .hero{position:relative;height:100vh;min-height:640px;display:flex;align-items:center;justify-content:center;overflow:hidden;color:var(--white)}
 .hero .art{transform:scale(1.08);animation:slowzoom 18s ease-out forwards}
+.hero-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 @keyframes slowzoom{to{transform:scale(1)}}
 .shade{position:absolute;inset:0;background:rgba(0,0,0,.5)}
 .hero-c{position:relative;z-index:2;width:90%;display:flex;flex-direction:column;align-items:center;gap:56px;padding-top:80px}
@@ -358,11 +359,10 @@ footer .in{width:90%;max-width:1400px;margin:0 auto;display:flex;flex-direction:
 
 <!-- HERO -->
 <header class="hero" id="top">
-  <div class="art" data-art="tower:dusk"></div>
+  <video class="hero-vid" src="hero.mp4" poster="hero-poster.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
   <div class="shade"></div>
   <div class="hero-c">
     <div class="hero-t">
-      <p class="pre">175 Huguenot Street · New Rochelle, NY</p>
       <h1><span>Trump</span> <span>Plaza</span> <span>New&nbsp;Rochelle</span></h1>
       <p class="sub">A 40-story condominium tower in the heart of downtown Westchester</p>
     </div>
