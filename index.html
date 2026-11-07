@@ -1,0 +1,935 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trump Plaza New Rochelle | 175 Huguenot Street Building Guide</title>
+<meta name="description" content="An independent guide to Trump Plaza New Rochelle, the 40-story condominium tower at 175 Huguenot Street in downtown New Rochelle, NY.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+:root{
+  --gold:#b89a5e; --gold-d:#917846; --ink:#212121; --black:#000; --white:#fff;
+  --soft:#f5f5f5; --muted:#666; --line:rgba(0,0,0,.15);
+  --display:"Italiana", Georgia, serif; --body:"Raleway", system-ui, sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);color:var(--ink);background:var(--white);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+.art{position:absolute;inset:0;overflow:hidden}
+.art svg,.art img{width:100%;height:100%;display:block;object-fit:cover}
+.wrap{width:90%;max-width:1500px;margin:0 auto}
+.pre{font-size:22px;text-transform:uppercase;letter-spacing:.02em;color:var(--white);text-align:center;opacity:.7}
+.pre.dark{color:var(--black);opacity:.67}
+.h2{font-family:var(--display);font-weight:400;font-size:64px;line-height:1.2;color:var(--ink);text-align:center}
+.h2.light{color:var(--white)}
+.left{text-align:left}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:16px 32px;border-radius:50px;font-weight:700;font-size:16px;line-height:1.1;transition:background .3s,color .3s,transform .3s;white-space:nowrap}
+.btn:hover{transform:translateY(-2px)}
+.btn-white{background:var(--white);color:rgba(0,0,0,.9)}
+.btn-white:hover{background:var(--gold);color:var(--white)}
+.btn-line{border:1px solid rgba(255,255,255,.6);color:var(--white)}
+.btn-line:hover{background:var(--white);color:var(--gold)}
+.btn-gold{background:var(--gold);color:var(--white)}
+.btn-gold:hover{background:var(--gold-d)}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .9s ease,transform .9s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;padding:24px 48px;display:flex;align-items:center;justify-content:space-between;transition:background .4s,padding .4s}
+.nav.scrolled{background:rgba(22,19,16,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:14px 48px}
+.logo{display:flex;flex-direction:column;align-items:flex-start;line-height:1;color:var(--white)}
+.logo b{font-family:var(--display);font-weight:400;font-size:28px;letter-spacing:.18em}
+.logo small{font-size:9px;letter-spacing:.36em;text-transform:uppercase;opacity:.75;margin-top:6px}
+.logo.dark{color:var(--ink)}
+.nav-r{display:flex;align-items:center;gap:64px}
+.nav-links{display:flex;gap:48px}
+.nav-links a{color:var(--white);font-size:16px;position:relative;padding-top:4px}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-6px;height:1px;width:0;background:var(--soft);transition:width .3s}
+.nav-links a:hover::after{width:100%}
+.burger{width:40px;height:50px;position:relative;z-index:60}
+.burger span{position:absolute;height:2px;border-radius:10px;background:var(--white);transition:all .35s}
+.burger span:nth-child(1){width:34px;top:14px;left:3px}
+.burger span:nth-child(2){width:19px;top:24px;left:18px}
+.burger span:nth-child(3){width:26px;top:34px;left:11px}
+.burger:hover span:nth-child(1){width:24px;left:13px}
+.burger:hover span:nth-child(2){width:34px;left:3px}
+.burger:hover span:nth-child(3){width:18px;left:19px}
+.burger.open span:nth-child(1){width:29px;left:5px;top:24px;transform:rotate(45deg)}
+.burger.open span:nth-child(2){opacity:0}
+.burger.open span:nth-child(3){width:29px;left:5px;top:24px;transform:rotate(-45deg)}
+.menu{position:fixed;inset:0;z-index:45;background:#16130f;color:var(--white);display:flex;flex-direction:column;justify-content:center;padding:0 10%;gap:18px;clip-path:circle(0% at calc(100% - 68px) 49px);transition:clip-path .7s cubic-bezier(.7,0,.2,1)}
+.menu.open{clip-path:circle(150% at calc(100% - 68px) 49px)}
+.menu a{font-family:var(--display);font-size:clamp(40px,7vw,84px);line-height:1.05;opacity:.85;transition:opacity .3s,color .3s,padding .3s}
+.menu a:hover{opacity:1;color:var(--gold);padding-left:14px}
+.menu p{margin-top:30px;font-size:15px;opacity:.6;letter-spacing:.04em}
+
+/* HERO */
+.hero{position:relative;height:100vh;min-height:640px;display:flex;align-items:center;justify-content:center;overflow:hidden;color:var(--white)}
+.hero .art{transform:scale(1.08);animation:slowzoom 18s ease-out forwards}
+@keyframes slowzoom{to{transform:scale(1)}}
+.shade{position:absolute;inset:0;background:rgba(0,0,0,.5)}
+.hero-c{position:relative;z-index:2;width:90%;display:flex;flex-direction:column;align-items:center;gap:56px;padding-top:80px}
+.hero-t{display:flex;flex-direction:column;align-items:center;gap:28px}
+.hero h1{font-family:var(--display);font-weight:400;font-size:clamp(60px,10vw,160px);line-height:1;text-align:center}
+.hero h1 span{display:inline-block;opacity:0;transform:translateY(40px) skewY(-8deg);animation:rise 1s cubic-bezier(.2,.8,.2,1) forwards}
+.hero h1 span:nth-child(2){animation-delay:.12s}
+.hero h1 span:nth-child(3){animation-delay:.24s}
+@keyframes rise{to{opacity:1;transform:none}}
+.hero .sub{font-size:26px;opacity:.75;text-align:center}
+.hero-b{display:flex;gap:16px}
+.scroll-cue{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);z-index:2;width:35px;height:35px;color:var(--white);opacity:.8;animation:bob 2s ease-in-out infinite}
+@keyframes bob{50%{transform:translate(-50%,8px)}}
+
+/* EXPLORE */
+.sec{padding:120px 0}
+.title{display:flex;flex-direction:column;gap:6px;align-items:center;margin-bottom:48px}
+.title.l{align-items:flex-start}
+.sol{display:flex;gap:4px;width:100%}
+.sol a{position:relative;flex:1;height:600px;overflow:hidden;display:flex;align-items:flex-end;padding:48px;transition:flex .7s cubic-bezier(.6,0,.2,1)}
+.sol a:hover{flex:2}
+.sol a .art{transition:transform 1.2s}
+.sol a:hover .art{transform:scale(1.05)}
+.sol a .shade{background:rgba(0,0,0,.42);transition:background .5s}
+.sol a:hover .shade{background:rgba(0,0,0,.22)}
+.sol p{position:relative;z-index:2;color:var(--white);font-size:36px;letter-spacing:.04em;line-height:.9;white-space:nowrap}
+
+/* ABOUT */
+.about{background:var(--soft);padding:96px 0}
+.about .in{width:90%;max-width:1300px;margin:0 auto;display:flex;flex-wrap:wrap;gap:64px;align-items:stretch}
+.about .txt{flex:1 1 400px;display:flex;flex-direction:column;justify-content:center;gap:28px}
+.about .txt p.body{font-size:18px;line-height:1.55;opacity:.72;max-width:520px}
+.about .img{flex:1 1 550px;min-height:640px;position:relative;overflow:hidden}
+.facts{display:grid;grid-template-columns:auto 1fr;gap:10px 24px;font-size:15px;max-width:520px}
+.facts dt{font-weight:600;color:var(--gold-d)}
+.facts dd{opacity:.8}
+
+/* STATS */
+.stats{position:relative;padding:200px 0;overflow:hidden}
+.stats .shade{background:rgba(0,0,0,.55)}
+.stats .in{position:relative;z-index:2;width:90%;margin:0 auto}
+.stat-row{display:flex;flex-wrap:wrap;justify-content:center;gap:84px}
+.stat{min-width:160px;color:rgba(255,255,255,.75)}
+.stat .n{display:flex;align-items:baseline;gap:8px}
+.stat .n b{font-family:var(--display);font-weight:400;font-size:54px;line-height:1.5;color:var(--white);font-variant-numeric:tabular-nums}
+.stat .n i{font-style:normal;font-size:30px}
+.stat .l{font-size:16px}
+
+/* RESIDENCES */
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.prop{display:flex;flex-direction:column;gap:24px}
+.prop .ph{position:relative;height:420px;overflow:hidden;background:#f3efe8}
+.prop .ph .art{transition:transform 1s cubic-bezier(.2,.8,.2,1)}
+.prop:hover .ph .art{transform:scale(1.04)}
+.badge{position:absolute;top:12px;right:12px;z-index:2;padding:8px 14px;border-radius:90px;background:rgba(255,255,255,.7);border:1px solid rgba(0,0,0,.06);backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);font-size:13px;color:#000}
+.prop .c{padding-left:12px;display:flex;flex-direction:column;gap:16px}
+.prop h3{font-weight:500;font-size:26px;line-height:1.2;color:#000}
+.prop .desc{font-size:16px;line-height:1.5;opacity:.7}
+.feats{display:flex;flex-wrap:wrap;gap:12px}
+.feats span{display:flex;align-items:center;gap:8px;font-weight:500;font-size:14px;color:rgba(0,0,0,.6)}
+.feats svg{width:20px;height:20px;color:var(--gold);flex:none}
+.note{margin-top:48px;text-align:center;font-size:14px;opacity:.6}
+
+/* CALLOUT */
+.testi{position:relative;min-height:600px;padding:136px 0;display:flex;align-items:center;justify-content:center;overflow:hidden;color:var(--white)}
+.testi .shade{background:rgba(0,0,0,.55)}
+.testi .in{position:relative;z-index:2;width:90%;max-width:1000px;display:flex;flex-direction:column;gap:40px}
+.testi .kicker{font-size:16px;text-transform:uppercase;letter-spacing:.12em;color:var(--gold)}
+.testi h3{font-weight:400;font-size:30px;line-height:1.25;transition:opacity .35s}
+.slide-bar{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.dots{display:flex;gap:8px}
+.dots i{width:28px;height:2px;background:rgba(255,255,255,.35);transition:background .3s}
+.dots i.on{background:var(--white)}
+.arrows{display:flex;gap:10px}
+.arrows button{width:55px;height:55px;border-radius:90px;display:flex;align-items:center;justify-content:center;transition:background .3s}
+.arrows button:hover{background:rgba(255,255,255,.15)}
+.arrows svg{width:25px;height:25px}
+
+/* NEIGHBORHOOD */
+.blog-card{display:flex;flex-direction:column;gap:20px}
+.blog-card .ph{position:relative;height:350px;overflow:hidden}
+.blog-card .ph .art{transition:transform 1s}
+.blog-card:hover .ph .art{transform:scale(1.06)}
+.blog-card .date{position:absolute;top:0;left:0;right:0;z-index:2;padding:24px 24px 36px;background:linear-gradient(180deg,rgba(0,0,0,.45) 33%,rgba(0,0,0,0));color:var(--white);font-size:16px;letter-spacing:.06em;text-transform:uppercase}
+.blog-card h4{padding-left:12px;font-weight:400;font-size:22px;color:rgba(0,0,0,.9);line-height:1.25}
+.blog-card p{padding-left:12px;font-size:16px;line-height:1.5;opacity:.7}
+
+/* NEIGHBORHOOD MAP POPUP */
+.map-cta{display:flex;justify-content:center;margin-top:56px}
+.nm{position:fixed;inset:0;z-index:80;background:#fbfaf7;display:flex;flex-direction:column;opacity:0;visibility:hidden;transform:scale(1.02);transition:opacity .45s,transform .45s,visibility 0s .45s}
+.nm.open{opacity:1;visibility:visible;transform:none;transition:opacity .45s,transform .45s}
+.nm-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 32px;background:#16130f;color:var(--white)}
+.nm-head .logo b{font-size:22px}
+.nm-head h2{font-family:var(--display);font-weight:400;font-size:26px;letter-spacing:.08em;flex:1;text-align:center}
+.nm-close{width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;transition:background .3s,border-color .3s}
+.nm-close:hover{background:var(--gold);border-color:var(--gold)}
+.nm-close svg{width:18px;height:18px;stroke:currentColor;stroke-width:2;fill:none}
+.nm-body{flex:1;display:flex;min-height:0}
+.nm-side{width:380px;flex-shrink:0;display:flex;flex-direction:column;border-right:1px solid var(--line);background:var(--white);min-height:0}
+.nm-chips{display:flex;flex-wrap:wrap;gap:8px;padding:20px 24px;border-bottom:1px solid var(--line)}
+.chip{padding:8px 14px;border-radius:40px;border:1px solid var(--line);font-size:13px;font-weight:500;letter-spacing:.02em;transition:all .25s;white-space:nowrap}
+.chip:hover{border-color:var(--gold);color:var(--gold-d)}
+.chip.on{background:var(--ink);border-color:var(--ink);color:var(--white)}
+.nm-list{list-style:none;overflow-y:auto;flex:1}
+.nm-list button{width:100%;display:flex;align-items:center;gap:14px;padding:16px 24px;text-align:left;border-bottom:1px solid rgba(0,0,0,.06);transition:background .2s}
+.nm-list button:hover,.nm-list button.on{background:#f7f3ec}
+.nm-list .ic{flex-shrink:0}
+.nm-list strong{display:block;font-weight:600;font-size:15px;color:var(--ink)}
+.nm-list span.meta{display:block;font-size:13px;color:var(--muted);margin-top:3px}
+.nm-mapwrap{position:relative;flex:1;min-width:0}
+#nmMap{position:absolute;inset:0;background:#2b2a27}
+.ic{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--c,var(--gold));color:#fff;box-shadow:0 0 0 3px #fff,0 4px 12px rgba(0,0,0,.25)}
+.ic svg{width:17px;height:17px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.pin{background:none;border:0}
+.pin .ic{transition:transform .25s}
+.pin:hover .ic,.pin.on .ic{transform:scale(1.22)}
+.pin.on .ic{box-shadow:0 0 0 3px #fff,0 0 0 7px rgba(184,154,94,.45),0 6px 16px rgba(0,0,0,.3)}
+.pin-home .ic{width:48px;height:48px;background:#16130f;box-shadow:0 0 0 3px var(--gold),0 6px 18px rgba(0,0,0,.35)}
+.pin-home .ic svg{width:22px;height:22px;stroke:var(--gold)}
+.pin-home .lbl{position:absolute;left:50%;top:56px;transform:translateX(-50%);white-space:nowrap;background:#16130f;color:#fff;font:600 11px var(--body);letter-spacing:.14em;text-transform:uppercase;padding:6px 10px;border-radius:4px}
+.nm-card{position:absolute;left:24px;bottom:24px;z-index:500;width:360px;max-width:calc(100% - 48px);background:var(--white);border-radius:6px;box-shadow:0 18px 50px rgba(0,0,0,.22);padding:26px 26px 24px;transform:translateY(16px);opacity:0;visibility:hidden;transition:all .35s}
+.nm-card.show{transform:none;opacity:1;visibility:visible}
+.nm-card .cat{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-d)}
+.nm-card .cat i{width:8px;height:8px;border-radius:50%;background:var(--c,var(--gold))}
+.nm-card h3{font-family:var(--display);font-weight:400;font-size:30px;line-height:1.1;margin:10px 0 8px;color:var(--ink)}
+.nm-card .addr{font-size:14px;color:var(--muted)}
+.nm-card p.d{font-size:15px;line-height:1.55;margin:14px 0 18px;opacity:.85}
+.nm-card .walk{display:flex;gap:22px;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:18px}
+.nm-card .walk b{display:block;font-family:var(--display);font-weight:400;font-size:26px;color:var(--ink)}
+.nm-card .walk small{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.nm-card .btn{padding:13px 24px;font-size:14px}
+.nm-card .x{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--muted)}
+.nm-card .x:hover{background:var(--soft);color:var(--ink)}
+.nm-card .x svg{width:14px;height:14px;stroke:currentColor;stroke-width:2;fill:none}
+.nm-listtoggle{display:none}
+.leaflet-container{font-family:var(--body)}
+.leaflet-control-attribution{font-size:10px}
+.tl-sat{filter:saturate(.8) contrast(1.06) brightness(.95) sepia(.12)}
+.tl-ref{opacity:.75}
+.tl-street{filter:saturate(.55) sepia(.18) contrast(.98)}
+.nm .leaflet-control-layers{border:0;border-radius:40px;box-shadow:0 4px 14px rgba(0,0,0,.25);padding:4px;background:rgba(255,255,255,.95)}
+.nm .leaflet-control-layers-base{display:flex;gap:2px}
+.nm .leaflet-control-layers-base label{margin:0;position:relative}
+.nm .leaflet-control-layers-selector{position:absolute;opacity:0;pointer-events:none}
+.nm .leaflet-control-layers-base label span span{display:block;padding:8px 14px;border-radius:40px;font:600 12px var(--body);letter-spacing:.06em;cursor:pointer;color:var(--ink)}
+.nm .leaflet-control-layers-selector:checked+span{background:var(--ink);color:#fff}
+.nm .leaflet-control-layers-selector:focus-visible+span{outline:2px solid var(--gold)}
+.nm .leaflet-control-layers-separator,.nm .leaflet-control-layers-overlays{display:none}
+@media (max-width:860px){
+  .nm-head{padding:14px 16px}.nm-head .logo{display:none}.nm-head h2{text-align:left;font-size:22px}
+  .nm-body{flex-direction:column}
+  .nm-side{width:auto;border-right:0;border-bottom:1px solid var(--line);flex:0 0 auto}
+  .nm-chips{flex-wrap:nowrap;overflow-x:auto;padding:12px 16px;border-bottom:0}
+  .nm-list{display:none;max-height:42vh;border-top:1px solid var(--line)}
+  .nm.list-open .nm-list{display:block}
+  .nm-listtoggle{display:block;position:absolute;top:12px;left:12px;z-index:500;background:var(--white);border-radius:40px;padding:10px 16px;font-size:13px;font-weight:600;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+  .nm-card{left:12px;right:12px;bottom:12px;width:auto;max-width:none;padding:22px 20px 20px}
+  .nm-card h3{font-size:26px}
+}
+
+/* FAQ */
+.faq{padding:136px 0}
+.faq .in{width:90%;max-width:1500px;margin:0 auto;display:flex;flex-wrap:wrap;gap:48px}
+.faq .title{flex:1 1 400px;margin:0}
+.qa{flex:1 1 500px;display:flex;flex-direction:column}
+.q{border-bottom:1px solid rgba(0,0,0,.2);padding:24px 0}
+.q:first-child{padding-top:0}
+.q button{width:100%;display:flex;justify-content:space-between;align-items:flex-start;gap:48px;text-align:left}
+.q h6{font-weight:500;font-size:24px;line-height:1.2;color:#000}
+.q svg{width:25px;height:25px;flex:none;opacity:.6;transition:transform .4s}
+.q.open svg{transform:rotate(-180deg)}
+.q .a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s ease}
+.q.open .a{grid-template-rows:1fr}
+.q .a>div{overflow:hidden}
+.q .a p{padding-top:12px;padding-right:72px;font-size:16px;line-height:1.5;opacity:.8}
+
+/* CTA */
+.cta{position:relative;padding:200px 0;overflow:hidden;display:flex;justify-content:center}
+.cta .shade{background:rgba(0,0,0,.45)}
+.cta .in{position:relative;z-index:2;width:90%;display:flex;flex-direction:column;align-items:center;gap:32px}
+.cta .title{margin:0}
+.cta .lead{color:rgba(255,255,255,.8);font-size:18px;text-align:center;max-width:620px;line-height:1.5}
+
+/* FOOTER */
+footer{padding:64px 0 48px}
+footer .in{width:90%;max-width:1400px;margin:0 auto;display:flex;flex-direction:column;gap:48px}
+.f-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:32px}
+.f-top .blurb{max-width:420px;font-size:14px;line-height:1.6;opacity:.85;margin-top:18px}
+.f-info{display:flex;flex-wrap:wrap;gap:64px}
+.f-col{display:flex;flex-direction:column;gap:20px}
+.f-col h4{font-weight:600;font-size:16px}
+.f-col a,.f-col span{font-size:16px;opacity:.8;display:flex;align-items:center;gap:10px;transition:opacity .3s}
+.f-col a:hover{opacity:1;color:var(--gold-d)}
+.f-col svg{width:22px;height:22px;color:var(--gold);flex:none}
+.disclaimer{font-size:13px;line-height:1.6;opacity:.65;max-width:900px}
+.copy{border-top:1px solid var(--line);padding-top:32px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:15px}
+.copy span{opacity:.8}
+
+/* RESPONSIVE */
+@media (max-width:1199px){
+  .h2{font-size:51px}
+  .pre{font-size:16px}
+  .grid3{grid-template-columns:1fr}
+  .grid3.two{grid-template-columns:repeat(2,1fr)}
+  .sol{flex-direction:column}
+  .sol a,.sol a:hover{flex:none;height:446px}
+  .about .in{flex-direction:column}
+  .about .img{order:-1;flex:none;min-height:0;height:560px}
+  .about .txt{flex:none}
+  .hero{height:80vh}
+  .testi h3{font-size:26px}
+}
+@media (max-width:809px){
+  .nav,.nav.scrolled{padding:12px 24px}
+  .nav-links{display:none}
+  .h2{font-size:41px}
+  .sec,.about{padding:60px 0}
+  .stats{padding:90px 0}
+  .hero{height:85vh;max-height:1000px}
+  .hero .sub{font-size:18px}
+  .hero-b{flex-direction:column;width:200px}
+  .hero-b .btn{width:100%}
+  .scroll-cue{display:none}
+  .sol a,.sol a:hover{height:300px;padding:32px}
+  .sol p{font-size:28px}
+  .about .img{height:420px}
+  .stat-row{flex-direction:column;gap:48px;align-items:center;text-align:center}
+  .stat .n{justify-content:center}
+  .stat .n b{font-size:46px}
+  .prop .ph{height:320px}
+  .prop h3{font-size:24px}
+  .grid3.two{grid-template-columns:1fr}
+  .testi{min-height:700px}
+  .testi h3{font-size:21px}
+  .faq{padding:90px 0}
+  .q h6{font-size:20px}
+  .q .a p{padding-right:0}
+  .cta{padding:120px 0}
+  .f-info{flex-direction:column;gap:32px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+  .hero h1 span{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ICON SPRITE -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-bed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"/><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/><path d="M12 4v6"/><path d="M2 18h20"/></symbol>
+  <symbol id="i-bath" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4 8 6"/><path d="M17 19v2"/><path d="M2 12h20"/><path d="M7 19v2"/><path d="M9 5 7.6 3.6A2 2 0 0 0 4 5v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/></symbol>
+  <symbol id="i-area" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-build" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="3" width="12" height="18"/><path d="M10 7h.01M14 7h.01M10 11h.01M14 11h.01M10 15h.01M14 15h.01M3 21h18"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="11"/><path d="M12 7v10"/><path d="m8 13 4 4 4-4"/></symbol>
+</svg>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a href="#top" class="logo" aria-label="Trump Tower New Rochelle home"><b>TRUMP TOWER</b><small>New Rochelle</small></a>
+  <div class="nav-r">
+    <div class="nav-links">
+      <a href="#building">The Building</a>
+      <a href="#residences">Residences</a>
+      <a href="#neighborhood">Neighborhood</a>
+    </div>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="menu" id="menu" aria-hidden="true">
+  <a href="#top">Home</a>
+  <a href="#building">The Building</a>
+  <a href="#residences">Residences</a>
+  <a href="#highlights">Highlights</a>
+  <a href="#neighborhood">Neighborhood</a>
+  <a href="#faq">FAQ</a>
+  <p>175 Huguenot Street · New Rochelle, NY 10801</p>
+</div>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="art" data-art="tower:dusk"></div>
+  <div class="shade"></div>
+  <div class="hero-c">
+    <div class="hero-t">
+      <p class="pre">175 Huguenot Street · New Rochelle, NY</p>
+      <h1><span>Trump</span> <span>Plaza</span> <span>New&nbsp;Rochelle</span></h1>
+      <p class="sub">A 40-story condominium tower in the heart of downtown Westchester</p>
+    </div>
+    <div class="hero-b">
+      <a href="#building" class="btn btn-white">Explore the Building</a>
+      <a href="#residences" class="btn btn-line">Residence Types</a>
+    </div>
+  </div>
+  <a href="#explore" class="scroll-cue" aria-label="Scroll down"><svg width="35" height="35"><use href="#i-down"/></svg></a>
+</header>
+
+<main>
+<!-- EXPLORE -->
+<section class="sec" id="explore">
+  <div class="wrap">
+    <div class="title reveal">
+      <p class="pre dark">Start Here</p>
+      <h2 class="h2">Explore 175 Huguenot</h2>
+    </div>
+    <div class="sol reveal">
+      <a href="#building"><div class="art" data-art="tower:day"></div><div class="shade"></div><p>The Building</p></a>
+      <a href="#residences"><div class="art" data-art="interior:sound"></div><div class="shade"></div><p>Residences</p></a>
+      <a href="#neighborhood"><div class="art" data-art="hood:water"></div><div class="shade"></div><p>Neighborhood</p></a>
+    </div>
+  </div>
+</section>
+
+<!-- BUILDING -->
+<section class="about" id="building">
+  <div class="in">
+    <div class="txt reveal">
+      <div class="title l" style="margin:0">
+        <p class="pre dark left">The Building</p>
+        <h2 class="h2 left">Downtown's Landmark Tower</h2>
+      </div>
+      <p class="body">Rising roughly 435 feet over downtown New Rochelle, Trump Plaza was built by Cappelli Enterprises between 2005 and 2007 at a reported cost of about $250 million. When it opened it was the tallest building in Westchester County, and it held that title until the twin-towered Ritz-Carlton in White Plains was completed.</p>
+      <p class="body">The tower sits on the two-acre "Parcel 1A" site, which the city had tried to redevelop for more than 30 years. It was part of the larger downtown revival that began with New Roc City in 1999. Two floors of retail form the base, and an enclosed pedestrian bridge links them to New Roc City.</p>
+      <dl class="facts">
+        <dt>Architect</dt><dd>Lessard Design Inc.</dd>
+        <dt>Developer</dt><dd>Cappelli Enterprises</dd>
+        <dt>Style</dt><dd>Postmodern</dd>
+        <dt>Total size</dt><dd>About 353,600 sq ft, including about 138,000 sq ft of retail</dd>
+        <dt>Management</dt><dd>AKAM Associates (since the condo board ended the Trump Organization's management in October 2021)</dd>
+      </dl>
+    </div>
+    <div class="img reveal"><div class="art" data-art="tower:portrait"></div></div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats" id="highlights">
+  <div class="art" data-art="tower:night"></div>
+  <div class="shade"></div>
+  <div class="in">
+    <div class="title">
+      <p class="pre">By the Numbers</p>
+      <h2 class="h2 light">Westchester's Former Tallest</h2>
+    </div>
+    <div class="stat-row">
+      <div class="stat"><div class="n"><b data-count="40">0</b></div><p class="l">Stories</p></div>
+      <div class="stat"><div class="n"><b data-count="435">0</b><i>ft</i></div><p class="l">Height</p></div>
+      <div class="stat"><div class="n"><i>~</i><b data-count="200">0</b></div><p class="l">Residences</p></div>
+      <div class="stat"><div class="n"><b data-count="2007" data-from="1990">1990</b></div><p class="l">Year Completed</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- RESIDENCES -->
+<section class="sec" id="residences">
+  <div class="wrap">
+    <div class="title reveal">
+      <p class="pre dark">Layouts in the Tower</p>
+      <h2 class="h2">Residence Types</h2>
+    </div>
+    <div class="grid3">
+      <article class="prop reveal">
+        <div class="ph"><div class="art" data-art="plan:1"></div><span class="badge">One Bedroom</span></div>
+        <div class="c">
+          <h3>One-Bedroom Residences</h3>
+          <div class="feats">
+            <span><svg><use href="#i-bed"/></svg>1</span>
+            <span><svg><use href="#i-bath"/></svg>1–2</span>
+            <span><svg><use href="#i-area"/></svg>~820–925 SQ.FT</span>
+          </div>
+          <p class="desc">Compact layouts with an open living and dining area, and city or water views on the higher floors.</p>
+        </div>
+      </article>
+      <article class="prop reveal">
+        <div class="ph"><div class="art" data-art="plan:2"></div><span class="badge">Two Bedroom</span></div>
+        <div class="c">
+          <h3>Two-Bedroom Residences</h3>
+          <div class="feats">
+            <span><svg><use href="#i-bed"/></svg>2</span>
+            <span><svg><use href="#i-bath"/></svg>2.5</span>
+            <span><svg><use href="#i-area"/></svg>~1,190–1,494 SQ.FT</span>
+          </div>
+          <p class="desc">The most common layout in the building. Some upper-floor units look out over Long Island Sound through oversized windows.</p>
+        </div>
+      </article>
+      <article class="prop reveal">
+        <div class="ph"><div class="art" data-art="plan:3"></div><span class="badge">Three Bedroom</span></div>
+        <div class="c">
+          <h3>Larger Combined Homes</h3>
+          <div class="feats">
+            <span><svg><use href="#i-bed"/></svg>3</span>
+            <span><svg><use href="#i-bath"/></svg>3+</span>
+            <span><svg><use href="#i-area"/></svg>~2,100+ SQ.FT</span>
+          </div>
+          <p class="desc">A small number of residences combine neighboring units into larger three-bedroom homes.</p>
+        </div>
+      </article>
+    </div>
+    <p class="note">Square footages are approximate ranges drawn from public listings. The floor plans are illustrations, not official plans. Availability and pricing change, so check current listings with a licensed agent.</p>
+  </div>
+</section>
+
+<!-- HIGHLIGHTS CAROUSEL -->
+<section class="testi">
+  <div class="art" data-art="interior:warm"></div>
+  <div class="shade"></div>
+  <div class="in reveal">
+    <p class="kicker" id="hk">Connected</p>
+    <h3 id="ht">The retail base is linked to New Roc City by an enclosed pedestrian bridge, so residents can reach its theaters, dining and entertainment without stepping outside.</h3>
+    <div class="slide-bar">
+      <div class="dots" id="hd"><i class="on"></i><i></i><i></i><i></i></div>
+      <div class="arrows">
+        <button aria-label="Previous highlight" id="hp"><svg><use href="#i-left"/></svg></button>
+        <button aria-label="Next highlight" id="hn"><svg><use href="#i-right"/></svg></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEIGHBORHOOD -->
+<section class="sec" id="neighborhood" style="background:var(--soft)">
+  <div class="wrap">
+    <div class="title reveal">
+      <p class="pre dark">Life Around 175 Huguenot</p>
+      <h2 class="h2">The Neighborhood</h2>
+    </div>
+    <div class="grid3 two">
+      <div class="blog-card reveal">
+        <div class="ph"><div class="art" data-art="hood:train"></div><span class="date">Getting Around</span></div>
+        <h4>Steps from Metro-North</h4>
+        <p>New Rochelle station is a short walk away, with trains to Grand Central in about half an hour. LaGuardia is roughly a 26-minute drive.</p>
+      </div>
+      <div class="blog-card reveal">
+        <div class="ph"><div class="art" data-art="hood:city"></div><span class="date">Shopping &amp; Entertainment</span></div>
+        <h4>New Roc City Next Door</h4>
+        <p>Movies, dining and recreation are a minute's walk across the skybridge, and downtown shops and banks are nearby.</p>
+      </div>
+      <div class="blog-card reveal">
+        <div class="ph"><div class="art" data-art="hood:bridge"></div><span class="date">Parks &amp; Waterfront</span></div>
+        <h4>Close to the Sound</h4>
+        <p>Davenport Neck Bird Sanctuary, Sheldrake Environmental Center and Ward Acres are among the green spaces within a few miles.</p>
+      </div>
+    </div>
+    <div class="map-cta reveal"><a href="#neighborhood" class="btn btn-gold">Explore the Neighborhood Map</a></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="in">
+    <div class="title l reveal">
+      <p class="pre dark left">FAQ's</p>
+      <h2 class="h2 left">Frequently<br>Asked Questions</h2>
+    </div>
+    <div class="qa reveal" id="qa">
+      <div class="q open"><button aria-expanded="true"><h6>Is the building still managed by the Trump Organization?</h6><svg><use href="#i-chev"/></svg></button>
+        <div class="a"><div><p>No. The condo board terminated the Trump Organization's management services in October 2021, and AKAM Associates now manages the building.</p></div></div></div>
+      <div class="q"><button aria-expanded="false"><h6>Who built Trump Plaza New Rochelle?</h6><svg><use href="#i-chev"/></svg></button>
+        <div class="a"><div><p>Cappelli Enterprises developed it, the same firm behind Trump Tower at City Center in nearby White Plains. Lessard Design Inc. was the architect. Construction ran from 2005 to 2007.</p></div></div></div>
+      <div class="q"><button aria-expanded="false"><h6>What amenities does the building offer?</h6><svg><use href="#i-chev"/></svg></button>
+        <div class="a"><div><p>Listing sites describe a pool, fitness center, sundeck, concierge, business center and a media room. Many units have in-unit washers and dryers, and garage parking is available. Confirm current amenities and fees with building management.</p></div></div></div>
+      <div class="q"><button aria-expanded="false"><h6>Can I rent here, or only buy?</h6><svg><use href="#i-chev"/></svg></button>
+        <div class="a"><div><p>The building is a condominium, so units are individually owned. Some owners lease their units, so both sales and rentals show up on public listing sites.</p></div></div></div>
+      <div class="q"><button aria-expanded="false"><h6>How tall is it?</h6><svg><use href="#i-chev"/></svg></button>
+        <div class="a"><div><p>About 435 feet across 40 floors. It was once the tallest building between New York City and Albany.</p></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="art" data-art="tower:cta"></div>
+  <div class="shade"></div>
+  <div class="in reveal">
+    <div class="title">
+      <p class="pre">Thinking About 175 Huguenot?</p>
+      <h2 class="h2 light">Living in Downtown New Rochelle</h2>
+    </div>
+    <p class="lead">For current availability, a licensed real estate agent or building management can help. You can also read more about the tower's history below.</p>
+    <div class="hero-b">
+      <a href="https://en.wikipedia.org/wiki/Trump_Plaza_(New_Rochelle)" target="_blank" rel="noopener" class="btn btn-white">Read the History</a>
+      <a href="#residences" class="btn btn-line">Residence Types</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="in">
+    <div class="f-top">
+      <div>
+        <a href="#top" class="logo dark"><b>TRUMP TOWER</b><small>New Rochelle</small></a>
+        <p class="blurb">An informational overview of Trump Plaza New Rochelle, compiled from public sources.</p>
+      </div>
+      <div class="f-info">
+        <div class="f-col">
+          <h4>Location</h4>
+          <span><svg><use href="#i-pin"/></svg>175 Huguenot Street, New Rochelle, NY 10801</span>
+          <span><svg><use href="#i-build"/></svg>Managed by AKAM Associates</span>
+        </div>
+        <div class="f-col"><h4>On This Page</h4><a href="#building">The Building</a><a href="#residences">Residences</a><a href="#neighborhood">Neighborhood</a><a href="#faq">FAQ</a></div>
+        <div class="f-col"><h4>Sources</h4>
+          <a href="https://en.wikipedia.org/wiki/Trump_Plaza_(New_Rochelle)" target="_blank" rel="noopener"><svg><use href="#i-link"/></svg>Wikipedia</a>
+          <a href="https://www.trump.com/residential-real-estate-portfolio/trump-plaza-new-rochelle-new-york" target="_blank" rel="noopener"><svg><use href="#i-link"/></svg>Trump.com listing</a>
+        </div>
+      </div>
+    </div>
+    <p class="disclaimer">This is an independent informational page. It is not affiliated with, endorsed by, or operated by the Trump Organization, the Trump Plaza condominium board, AKAM Associates, or Cappelli Enterprises. All artwork is illustrative and does not depict the actual building or units. Facts are drawn from public sources as of November 2026 and may change.</p>
+    <div class="copy"><span>Layout adapted from the Ambience template by DOVV Studio</span><span>© 2026 175 Huguenot Guide</span></div>
+  </div>
+</footer>
+
+<!-- NEIGHBORHOOD MAP POPUP -->
+<div class="nm" id="nm" role="dialog" aria-modal="true" aria-labelledby="nmTitle" aria-hidden="true">
+  <header class="nm-head">
+    <span class="logo"><b>TRUMP TOWER</b><small>New Rochelle</small></span>
+    <h2 id="nmTitle">The Neighborhood</h2>
+    <button class="nm-close" id="nmClose" aria-label="Close map"><svg viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+  </header>
+  <div class="nm-body">
+    <aside class="nm-side">
+      <div class="nm-chips" id="nmChips" role="toolbar" aria-label="Filter places"></div>
+      <ul class="nm-list" id="nmList"></ul>
+    </aside>
+    <div class="nm-mapwrap">
+      <div id="nmMap" aria-label="Map of the area around Trump Tower New Rochelle"></div>
+      <button class="nm-listtoggle" id="nmListToggle" aria-expanded="false">Show list</button>
+      <article class="nm-card" id="nmCard" aria-live="polite"></article>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ================= ART: every image is drawn here as SVG ================= */
+let U = 0;
+const stops = s => s.map(([o,c,a]) => `<stop offset="${o}" stop-color="${c}"${a!=null?` stop-opacity="${a}"`:''}/>`).join('');
+const lg = (id,s,x2=0,y2=1) => `<linearGradient id="${id}" x1="0" y1="0" x2="${x2}" y2="${y2}">${stops(s)}</linearGradient>`;
+const rg = (id,s) => `<radialGradient id="${id}">${stops(s)}</radialGradient>`;
+const svg = (inner, vb='0 0 1200 800') => `<svg viewBox="${vb}" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">${inner}</svg>`;
+const tree = (x,y,r,c) => `<g fill="${c}"><rect x="${x-4}" y="${y-r*.6}" width="8" height="${r*.8}"/><circle cx="${x}" cy="${y-r*1.2}" r="${r}"/><circle cx="${x-r*.6}" cy="${y-r*.8}" r="${r*.7}"/><circle cx="${x+r*.6}" cy="${y-r*.85}" r="${r*.75}"/></g>`;
+
+/* The tower: retail podium + skybridge + slender postmodern shaft with stepped crown */
+const PAL = {
+  dusk:{sky:[[0,'#1c2440'],[.55,'#6b5068'],[1,'#e8a26c']], body:'#cfc3b2', shade:'#a99a86', win:'#ffd99a', winA:.75, sea:'#5a4a62', ground:'#1c1a1e', far:'#2e2a3a', sun:'#f8d2a0'},
+  day:{sky:[[0,'#5d93bd'],[.7,'#c6dbe6'],[1,'#eef1ef']], body:'#e7ddcf', shade:'#c0b19c', win:'#7ea3b8', winA:.9, sea:'#5c8fac', ground:'#6f7a6a', far:'#9aa9b1', sun:'#fff7e0'},
+  night:{sky:[[0,'#080c1a'],[.7,'#1d2540'],[1,'#3a3a52']], body:'#3b3a44', shade:'#2a2932', win:'#ffd690', winA:.85, sea:'#1b2236', ground:'#0c0d12', far:'#1a1e2c', sun:'#efe8d4'},
+};
+function tower(kind){
+  const p='a'+(U++);
+  const P = PAL[kind==='portrait'?'day':kind==='cta'?'dusk':kind] ;
+  const x=520, w=160, top=150, base=600;            // shaft
+  const rows=Math.floor((base-top-20)/12);
+  const winRows = Array.from({length:rows},(_,r)=>{
+    const y=top+16+r*12; let s='';
+    for(let c=0;c<7;c++){ const lit = kind==='night'||kind==='dusk'||kind==='cta' ? ((r*7+c)*37%11)>3 : true;
+      if(lit) s+=`<rect x="${x+10+c*21}" y="${y}" width="14" height="7" fill="${P.win}" opacity="${P.winA*(kind==='day'||kind==='portrait'?.9:((r+c)%3?1:.55))}"/>`; }
+    return s; }).join('');
+  const bg = (bx,bw,bh,c)=>`<rect x="${bx}" y="${640-bh}" width="${bw}" height="${bh}" fill="${c}"/>`;
+  const vb = kind==='portrait' ? '300 0 600 800' : '0 0 1200 800';
+  return svg(`<defs>${lg(p+'s',P.sky)}${lg(p+'b',[[0,P.body],[1,P.shade]],1,0)}${lg(p+'sea',[[0,P.sea],[1,P.ground]])}${rg(p+'gl',[[0,P.win,.5],[1,P.win,0]])}</defs>
+    <rect width="1200" height="800" fill="url(#${p}s)"/>
+    ${kind==='night'?`<g fill="#fff">${Array.from({length:40},(_,i)=>`<circle cx="${(i*137)%1200}" cy="${(i*71)%300}" r="${i%3?1:1.6}" opacity=".55"/>`).join('')}</g>`:''}
+    <circle cx="${kind==='day'||kind==='portrait'?860:930}" cy="${kind==='night'?140:kind==='day'||kind==='portrait'?150:470}" r="${kind==='night'?34:56}" fill="${P.sun}" opacity=".9"/>
+    <rect x="760" y="520" width="440" height="120" fill="url(#${p}sea)" opacity=".9"/>
+    <g fill="${P.far}">${bg(0,90,170,P.far)}${bg(80,70,230,P.far)}${bg(160,110,150,P.far)}${bg(280,80,200,P.far)}${bg(380,90,130,P.far)}${bg(720,70,150,P.far)}${bg(800,60,110,P.far)}${bg(1050,80,90,P.far)}</g>
+    <rect x="${x-60}" y="${top-280}" width="${w+120}" height="560" fill="url(#${p}gl)" opacity="${kind==='day'||kind==='portrait'?0:.35}"/>
+    <!-- shaft -->
+    <rect x="${x}" y="${top}" width="${w}" height="${base-top}" fill="url(#${p}b)"/>
+    ${winRows}
+    <rect x="${x+w*0.48}" y="${top}" width="6" height="${base-top}" fill="${P.shade}" opacity=".7"/>
+    <!-- setbacks & crown -->
+    <rect x="${x+12}" y="${top-34}" width="${w-24}" height="34" fill="url(#${p}b)"/>
+    <rect x="${x+30}" y="${top-60}" width="${w-60}" height="26" fill="url(#${p}b)"/>
+    <path d="M${x+40} ${top-60} L${x+w/2} ${top-120} L${x+w-40} ${top-60}Z" fill="${P.shade}"/>
+    <line x1="${x+w/2}" y1="${top-120}" x2="${x+w/2}" y2="${top-160}" stroke="${P.shade}" stroke-width="4"/>
+    <rect x="${x+12}" y="${top-34}" width="${w-24}" height="5" fill="${P.win}" opacity="${kind==='day'||kind==='portrait'?.3:.8}"/>
+    <!-- podium + skybridge -->
+    <rect x="370" y="${base}" width="460" height="${640-base+10}" fill="${P.shade}"/>
+    <rect x="390" y="${base+12}" width="420" height="10" fill="${P.win}" opacity=".7"/>
+    <rect x="390" y="${base+30}" width="420" height="10" fill="${P.win}" opacity=".5"/>
+    <rect x="180" y="560" width="160" height="90" fill="${P.far}"/>
+    <rect x="200" y="572" width="120" height="8" fill="${P.win}" opacity=".5"/>
+    <rect x="340" y="${base+4}" width="30" height="18" fill="${P.body}"/><rect x="340" y="${base+8}" width="30" height="6" fill="${P.win}" opacity=".8"/>
+    <rect y="648" width="1200" height="152" fill="${P.ground}"/>
+    ${[60,180,300,880,1000,1120].map((tx,i)=>tree(tx,700+(i%2)*12,30+(i%3)*6, kind==='day'||kind==='portrait'?'#4f6a48':'#14181a')).join('')}
+    <g fill="${P.win}" opacity=".7">${[150,450,750,1050].map(lx=>`<circle cx="${lx}" cy="760" r="3"/>`).join('')}</g>`, vb);
+}
+
+/* Interiors */
+function interior(kind){
+  const p='a'+(U++);
+  const P = {
+    sound:{wall:['#e8e0d4','#cdbfab'], view:[[0,'#9cc0d6'],[.62,'#dbe8ee'],[.63,'#5f8fa8'],[1,'#3d6a80']], floor:['#b8977a','#8a6c52'], sofa:'#4a4038', rug:'#d8cbb6'},
+    warm:{wall:['#6b5546','#33271f'], view:[[0,'#3c4a6b'],[.6,'#b07a6a'],[1,'#f0b884']], floor:['#6a5040','#2c2019'], sofa:'#a38b70', rug:'#8a6f58'}
+  }[kind];
+  return svg(`<defs>${lg(p+'w',[[0,P.wall[0]],[1,P.wall[1]]])}${lg(p+'v',P.view)}${lg(p+'f',[[0,P.floor[0]],[1,P.floor[1]]])}${rg(p+'g',[[0,'#ffd99a',.9],[1,'#ffd99a',0]])}</defs>
+    <rect width="1600" height="900" fill="url(#${p}w)"/>
+    <rect x="700" y="90" width="820" height="590" fill="url(#${p}v)"/>
+    ${kind==='sound'?`<g fill="#fff" opacity=".9"><path d="M1100 440 l0-60 l28 60z"/><path d="M1104 444 h40 l-6 8 h-30z" fill="#2a3a44"/><path d="M1300 450 l0-40 l20 40z"/></g>`:''}
+    <path d="M700 600 C 860 560 1060 590 1520 560 L1520 680 L700 680Z" fill="#000" opacity=".3"/>
+    <g fill="#1a1512" opacity=".9"><rect x="690" y="80" width="840" height="14"/><rect x="690" y="674" width="840" height="14"/><rect x="690" y="80" width="14" height="608"/><rect x="1516" y="80" width="14" height="608"/><rect x="1103" y="80" width="12" height="608"/></g>
+    <rect y="690" width="1600" height="210" fill="url(#${p}f)"/>
+    <ellipse cx="520" cy="770" rx="440" ry="70" fill="${P.rug}" opacity=".7"/>
+    <rect x="200" y="570" width="620" height="120" rx="30" fill="${P.sofa}"/>
+    <rect x="230" y="520" width="560" height="90" rx="28" fill="${P.sofa}" opacity=".9"/>
+    <rect x="170" y="560" width="70" height="130" rx="30" fill="${P.sofa}"/><rect x="780" y="560" width="70" height="130" rx="30" fill="${P.sofa}"/>
+    <rect x="290" y="530" width="90" height="70" rx="18" fill="#b89a5e" opacity=".9" transform="rotate(-8 335 565)"/>
+    <rect x="420" y="740" width="240" height="14" rx="6" fill="#1a1512"/><rect x="440" y="712" width="200" height="28" rx="6" fill="#2a221c"/>
+    <circle cx="100" cy="260" r="200" fill="url(#${p}g)"/>
+    <path d="M80 760 L80 300 Q80 230 150 230" stroke="#18130f" stroke-width="8" fill="none"/>
+    <path d="M110 210 h80 l-14 50 h-52z" fill="#e8d6b4"/><ellipse cx="80" cy="762" rx="44" ry="10" fill="#18130f"/>`, '0 0 1600 900');
+}
+
+/* Illustrative floor plans */
+function plan(beds){
+  const room=(x,y,w,h,label,fill='#fbf9f5')=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${fill}" stroke="#3a332c" stroke-width="6"/><text x="${x+w/2}" y="${y+h/2+6}" text-anchor="middle" font-family="Raleway,sans-serif" font-size="20" letter-spacing="2" fill="#7a6a58">${label}</text>`;
+  const door=(x,y,r,rot)=>`<path d="M${x} ${y} l${r} 0 a${r} ${r} 0 0 0 ${-r} ${-r}" fill="none" stroke="#b89a5e" stroke-width="2" transform="rotate(${rot} ${x} ${y})"/>`;
+  const win=(x,y,w)=>`<rect x="${x}" y="${y-5}" width="${w}" height="10" fill="#9fc3d4"/>`;
+  let body='';
+  if(beds===1){
+    body = room(250,180,420,300,'LIVING / DINING')+room(670,180,280,260,'BEDROOM')+room(670,440,160,140,'BATH','#f1ede6')+room(250,480,250,160,'KITCHEN','#f1ede6')+room(500,480,170,160,'ENTRY')+room(830,440,120,140,'W/D','#f1ede6')
+      +win(290,180,340)+win(700,180,220)+door(560,640,60,0)+door(700,440,50,90);
+  } else if(beds===2){
+    body = room(180,170,460,300,'LIVING / DINING')+room(640,170,300,240,'PRIMARY')+room(640,410,180,150,'BATH','#f1ede6')+room(180,470,220,180,'BEDROOM')+room(400,470,240,180,'KITCHEN','#f1ede6')+room(820,410,120,150,'BATH','#f1ede6')+room(940,170,90,390,'CLOSET','#f1ede6')
+      +win(220,170,380)+win(670,170,240)+win(210,650,160)+door(560,470,50,180)+door(660,410,50,90);
+  } else {
+    body = room(150,150,520,300,'GREAT ROOM')+room(670,150,330,250,'PRIMARY')+room(670,400,190,160,'BATH','#f1ede6')+room(150,450,230,200,'BEDROOM')+room(380,450,210,200,'BEDROOM')+room(590,560,270,90,'KITCHEN','#f1ede6')+room(860,400,140,250,'BATH','#f1ede6')+room(590,450,80,110,'W/D','#f1ede6')
+      +win(190,150,440)+win(700,150,270)+win(180,650,170)+win(410,650,150)+door(690,400,50,90);
+  }
+  return svg(`<rect width="1200" height="800" fill="#f3efe8"/>
+    <g opacity=".08" stroke="#3a332c">${Array.from({length:30},(_,i)=>`<line x1="${i*40}" y1="0" x2="${i*40}" y2="800"/><line x1="0" y1="${i*40}" x2="1200" y2="${i*40}"/>`).join('')}</g>
+    ${body}
+    <g transform="translate(1080 110)" fill="#b89a5e"><path d="M0 -30 L10 0 L0 -6 L-10 0Z"/><text y="22" text-anchor="middle" font-family="Raleway,sans-serif" font-size="16" font-weight="600">N</text></g>
+    <text x="150" y="740" font-family="Raleway,sans-serif" font-size="18" letter-spacing="3" fill="#a59682">ILLUSTRATIVE LAYOUT · NOT TO SCALE</text>`);
+}
+
+/* Neighborhood scenes */
+function hood(kind){
+  const p='a'+(U++);
+  if(kind==='train') return svg(`<defs>${lg(p+'s',[[0,'#9fbcd2'],[1,'#e9e1d2']])}</defs><rect width="1200" height="800" fill="url(#${p}s)"/>
+    <rect x="0" y="380" width="1200" height="40" fill="#8c8478"/>
+    <rect x="80" y="250" width="360" height="130" fill="#b9ad9b"/><path d="M60 250 L260 190 L460 250Z" fill="#7e6f5d"/>
+    <rect x="0" y="520" width="1200" height="280" fill="#6b6359"/>
+    <g stroke="#3c362f" stroke-width="10"><line x1="0" y1="640" x2="1200" y2="640"/><line x1="0" y1="690" x2="1200" y2="690"/></g>
+    <g transform="translate(140 430)"><rect width="900" height="200" rx="26" fill="#d9d6cf"/><rect y="150" width="900" height="16" fill="#1b4f7a"/><rect y="20" width="900" height="10" fill="#1b4f7a"/>
+      ${Array.from({length:9},(_,i)=>`<rect x="${30+i*98}" y="50" width="70" height="70" rx="6" fill="#33485a"/>`).join('')}
+      <circle cx="120" cy="206" r="22" fill="#2a2622"/><circle cx="780" cy="206" r="22" fill="#2a2622"/></g>
+    <g transform="translate(1000 200)"><rect x="0" y="0" width="140" height="70" rx="6" fill="#1b4f7a"/><text x="70" y="44" text-anchor="middle" font-family="Raleway,sans-serif" font-weight="700" font-size="22" fill="#fff">30 MIN</text><rect x="64" y="70" width="12" height="160" fill="#3c362f"/></g>`);
+  if(kind==='city') return svg(`<defs>${lg(p+'s',[[0,'#1e2234'],[1,'#53445a']])}</defs><rect width="1200" height="800" fill="url(#${p}s)"/>
+    <rect x="0" y="260" width="460" height="540" fill="#2b2734"/><rect x="740" y="200" width="460" height="600" fill="#2b2734"/>
+    <rect x="460" y="360" width="280" height="90" fill="#3c3746"/><g fill="#ffd690" opacity=".8">${Array.from({length:6},(_,i)=>`<rect x="${475+i*44}" y="380" width="30" height="50"/>`).join('')}</g>
+    <rect x="60" y="480" width="340" height="80" fill="#b89a5e"/><text x="230" y="532" text-anchor="middle" font-family="Italiana,serif" font-size="40" fill="#1e2234" letter-spacing="4">NOW SHOWING</text>
+    <g fill="#ffd690">${Array.from({length:16},(_,i)=>`<circle cx="${70+i*21}" cy="470" r="4"/><circle cx="${70+i*21}" cy="570" r="4"/>`).join('')}</g>
+    <g fill="#ffd690" opacity=".6">${Array.from({length:24},(_,i)=>`<rect x="${770+(i%6)*70}" y="${240+Math.floor(i/6)*70}" width="40" height="40"/>`).join('')}</g>
+    <rect y="680" width="1200" height="120" fill="#141219"/>
+    <g fill="#e8d6b4" opacity=".7"><ellipse cx="600" cy="740" rx="300" ry="14"/></g>`);
+  return svg(`<defs>${lg(p+'s',[[0,'#7fb0cf'],[1,'#f2e6cf']])}${lg(p+'w',[[0,'#4f8aa6'],[1,'#22506a']])}</defs><rect width="1200" height="800" fill="url(#${p}s)"/>
+    <circle cx="900" cy="200" r="60" fill="#fff4d8"/>
+    <path d="M0 430 C 200 410 400 420 700 400 L 700 440 L0 450Z" fill="#7d9277"/>
+    <rect y="440" width="1200" height="360" fill="url(#${p}w)"/>
+    <g stroke="#fff" stroke-width="3" opacity=".35" fill="none">${[500,560,620,700].map((y,i)=>`<path d="M${80+i*160} ${y}q30-8 60 0t60 0"/>`).join('')}</g>
+    ${[[420,470,1],[720,500,1.3],[980,460,.8]].map(([x,y,s])=>`<g transform="translate(${x} ${y}) scale(${s})"><path d="M0 0 L0 -110 L60 0Z" fill="#fff"/><path d="M-6 -10 L0 -90 L-40 -10Z" fill="#f4ede0"/><path d="M-50 6 h120 l-14 18 h-92z" fill="#2a3a44"/></g>`).join('')}
+    <path d="M0 640 C 120 600 220 620 320 650 L320 800 L0 800Z" fill="#6c7f5a"/>
+    ${tree(80,640,50,'#4b6340')}${tree(200,650,40,'#56704a')}`);
+}
+
+/* Real photography (Unsplash) — falls back to the drawn SVG if an image fails */
+const IMG={
+  'tower:dusk':'1485871981521-5b1fd3805eee','tower:day':'1499092346589-b9b6be3e94b2',
+  'tower:portrait':'1555109307-f7d9da25c244','tower:night':'1477959858617-67f85cf4f1df',
+  'tower:cta':'1543716091-a840c05249ec','interior:sound':'1600607687939-ce8a6c25118c',
+  'interior:warm':'1546436836-07a91091f160','plan:1':'1502672260266-1c1ef2d93688',
+  'plan:2':'1600210492486-724fe5c67fb0','plan:3':'1616594039964-ae9021a400a0',
+  'hood:water':'1514565131-fce0801e5785','hood:bridge':'1518391846015-55a9cc003b25',
+  'hood:train':'1449824913935-59a10b8d2000','hood:city':'1496442226666-8d4d0e62e6e9'
+};
+const drawn=(t,k)=>t==='tower'?tower(k): t==='interior'?interior(k): t==='plan'?plan(+k): hood(k==='bridge'?'water':k);
+document.querySelectorAll('[data-art]').forEach(el=>{
+  const key=el.dataset.art,[t,k]=key.split(':'),big=el.closest('.hero,.stats,.testi,.cta');
+  const img=new Image();img.alt='';img.loading=el.closest('.hero')?'eager':'lazy';img.decoding='async';
+  img.src=`https://images.unsplash.com/photo-${IMG[key]}?auto=format&fit=crop&q=80&w=${big?2000:1200}`;
+  img.onerror=()=>{el.innerHTML=drawn(t,k);el.firstElementChild.setAttribute('aria-hidden','true')};
+  el.appendChild(img);
+});
+
+/* ================= Behaviour ================= */
+const nav=document.getElementById('nav');
+const onScroll=()=>nav.classList.toggle('scrolled',scrollY>80);
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+const burger=document.getElementById('burger'),menu=document.getElementById('menu');
+const toggle=open=>{burger.classList.toggle('open',open);menu.classList.toggle('open',open);burger.setAttribute('aria-expanded',open);menu.setAttribute('aria-hidden',!open);document.body.style.overflow=open?'hidden':''};
+burger.addEventListener('click',()=>toggle(!menu.classList.contains('open')));
+menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>toggle(false)));
+
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+const co=new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting)return; co.unobserve(e.target);
+  const el=e.target,end=+el.dataset.count,from=+(el.dataset.from||0),t0=performance.now(),d=1800;
+  const step=t=>{const k=Math.min((t-t0)/d,1);el.textContent=Math.round(from+(end-from)*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(step)};
+  requestAnimationFrame(step);
+}),{threshold:.5});
+document.querySelectorAll('[data-count]').forEach(el=>co.observe(el));
+
+document.querySelectorAll('#qa .q').forEach(q=>q.querySelector('button').addEventListener('click',()=>{
+  const was=q.classList.contains('open');
+  document.querySelectorAll('#qa .q').forEach(o=>{o.classList.remove('open');o.querySelector('button').setAttribute('aria-expanded','false')});
+  if(!was){q.classList.add('open');q.querySelector('button').setAttribute('aria-expanded','true')}
+}));
+
+/* Highlights carousel */
+const H=[
+  ['Connected','The retail base is linked to New Roc City by an enclosed pedestrian bridge, so residents can reach its theaters, dining and entertainment without stepping outside.'],
+  ['Views','From the upper floors, residences look out across downtown and toward Long Island Sound.'],
+  ['Commuter Friendly','Metro-North is a short walk away, and trains reach Grand Central in about 30 minutes.'],
+  ['Part of a Plan','The tower anchored a downtown redevelopment on a two-acre site the city had sought to rebuild for more than 30 years.']
+];
+let hi=0;const hk=document.getElementById('hk'),ht=document.getElementById('ht'),hd=[...document.querySelectorAll('#hd i')];
+const show=i=>{hi=(i+H.length)%H.length;ht.style.opacity=0;hk.style.opacity=0;setTimeout(()=>{hk.textContent=H[hi][0];ht.textContent=H[hi][1];ht.style.opacity=1;hk.style.opacity=1},300);hd.forEach((d,j)=>d.classList.toggle('on',j===hi))};
+document.getElementById('hp').onclick=()=>show(hi-1);
+document.getElementById('hn').onclick=()=>show(hi+1);
+/* ================= Neighborhood map popup ================= */
+const HOME=[40.9127,-73.78159];
+const CATS={
+  dining:{label:'Restaurants',c:'#9b5a3c',icon:'<path d="M7 3v8M5 3v5a2 2 0 0 0 4 0V3M7 11v10M16 3c-2 1-3 4-3 7h3v11"/>'},
+  cafe:{label:'Cafés',c:'#7a6248',icon:'<path d="M4 9h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V9zM16 10h2a2.5 2.5 0 0 1 0 5h-2M8 3v3M12 3v3"/>'},
+  bar:{label:'Bars',c:'#6b3b5a',icon:'<path d="M5 4h14l-7 8zM12 12v8M8 20h8"/>'},
+  park:{label:'Parks',c:'#4f7353',icon:'<path d="M12 3l5 7h-3l4 6H6l4-6H7zM12 16v5"/>'},
+  fun:{label:'Entertainment',c:'#3f4f73',icon:'<rect x="3" y="6" width="18" height="13" rx="2"/><path d="M7 6l3-3M17 6l-3-3M10 10l5 2.5-5 2.5z"/>'},
+  transit:{label:'Transit',c:'#2f6476',icon:'<rect x="6" y="3" width="12" height="14" rx="3"/><path d="M6 11h12M9 21l1.5-4M15 21l-1.5-4"/>'},
+  essentials:{label:'Essentials',c:'#8a7a3e',icon:'<path d="M3 4h3l2.5 11h10L21 8H7.2"/><circle cx="10" cy="19" r="1.4"/><circle cx="17" cy="19" r="1.4"/>'}
+};
+const HOME_ICON='<path d="M4 21V9l8-6 8 6v12M9 21v-6h6v6"/>';
+const PLACES=[
+  {n:'New Rochelle Station',k:'transit',a:'24 Station Plaza',ll:[40.91142,-73.78418],d:'Metro-North New Haven Line service with trains to Grand Central in about 30 minutes. Amtrak Northeast Regional trains stop here too.'},
+  {n:'New Rochelle Transit Center',k:'transit',a:'Station Plaza',ll:[40.9122,-73.78388],d:'Bee-Line bus hub beside the train station, with routes across Westchester and into the Bronx.'},
+  {n:'New Roc City',k:'fun',a:'33 Le Count Place',ll:[40.91133,-73.77928],d:'The entertainment and retail complex connected to the tower by an enclosed skybridge, with dining, recreation and shops under one roof.'},
+  {n:'Regal New Roc',k:'fun',a:'33 Le Count Place',ll:[40.91104,-73.77966],d:'Multiplex movie theater inside New Roc City, reachable without going outdoors.'},
+  {n:'New Rochelle Public Library',k:'fun',a:'1 Library Plaza',ll:[40.90975,-73.78252],d:'The city’s main library, facing Library Green, with collections, programs and events for all ages.'},
+  {n:'Alvin & Friends',k:'dining',a:'14 Memorial Highway',ll:[40.90891,-73.78259],d:'Southern-inspired American restaurant downtown, known for its art-filled dining room and live music.'},
+  {n:'Modern Restaurant & Lounge',k:'dining',a:'310 Huguenot Street',ll:[40.90891,-73.78422],d:'Italian restaurant and lounge on Huguenot Street, a popular spot for dinners and celebrations.'},
+  {n:'Lawton Street Tavern',k:'dining',a:'47 Lawton Street',ll:[40.91048,-73.78256],d:'Neighborhood American tavern a few blocks from the tower, good for casual dinners and drinks.'},
+  {n:'Roc N Ramen',k:'dining',a:'19 Anderson Street',ll:[40.91108,-73.78091],d:'Ramen bar around the corner, serving noodle bowls and small plates.'},
+  {n:'Shirley’s India',k:'dining',a:'Downtown New Rochelle',ll:[40.90746,-73.78222],d:'Indian restaurant in the downtown core.'},
+  {n:'18th Ward Brewing',k:'bar',a:'Downtown New Rochelle',ll:[40.90912,-73.78382],d:'Craft brewery and taproom pouring house-made beers.'},
+  {n:'R Café & Tea Boutique',k:'cafe',a:'Downtown New Rochelle',ll:[40.90917,-73.7841],d:'Café and tea shop for coffee, tea and a quiet stop downtown.'},
+  {n:'G Bakery',k:'cafe',a:'134 North Avenue',ll:[40.90754,-73.77928],d:'Colombian bakery and restaurant, a favorite for pastries, breads and breakfast.'},
+  {n:'Library Green',k:'park',a:'Library Plaza',ll:[40.91017,-73.78285],d:'A downtown green in front of the library, used for community events and a lunchtime break.'},
+  {n:'Lincoln Park',k:'park',a:'Lincoln Avenue',ll:[40.9165,-73.78965],d:'Neighborhood park with fields and play areas west of downtown.'},
+  {n:'Hudson Park & Beach',k:'park',a:'Hudson Park Road',ll:[40.90784,-73.76905],d:'Waterfront park on Long Island Sound with a small beach, marina views and picnic space.'},
+  {n:'Five Islands Park',k:'park',a:'Pelham Road',ll:[40.91222,-73.76566],d:'Waterfront park spread across connected islands, with walking paths and views over Echo Bay.'},
+  {n:'ShopRite',k:'essentials',a:'8 Joyce Road',ll:[40.91647,-73.77899],d:'Full-service supermarket a short walk north of the tower.'},
+  {n:'Montefiore New Rochelle',k:'essentials',a:'16 Guion Place',ll:[40.91327,-73.78805],d:'Full-service community hospital with an emergency department, minutes from downtown.'}
+];
+const distM=(a,b)=>{const R=6371e3,r=Math.PI/180,dl=(b[0]-a[0])*r,dn=(b[1]-a[1])*r,x=Math.sin(dl/2)**2+Math.cos(a[0]*r)*Math.cos(b[0]*r)*Math.sin(dn/2)**2;return 2*R*Math.asin(Math.sqrt(x))};
+PLACES.forEach(p=>{p.m=distM(HOME,p.ll)*1.25;p.min=Math.max(1,Math.round(p.m/80))});
+PLACES.sort((a,b)=>a.m-b.m);
+const icoHTML=k=>`<span class="ic" style="--c:${CATS[k].c}"><svg viewBox="0 0 24 24" aria-hidden="true">${CATS[k].icon}</svg></span>`;
+const fmtMi=m=>(m/1609).toFixed(m<1609?2:1)+' mi';
+
+const nm=document.getElementById('nm'),nmCard=document.getElementById('nmCard'),nmList=document.getElementById('nmList'),nmChips=document.getElementById('nmChips');
+let map,markers=[],active=null,filter='all',lastFocus=null,leafletP=null;
+const loadLeaflet=()=>leafletP||(leafletP=new Promise((res,rej)=>{
+  if(window.L)return res();const sc=document.createElement('script');
+  sc.src='https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js';sc.onload=res;sc.onerror=()=>{leafletP=null;rej()};document.head.appendChild(sc)}));
+
+function buildMap(){
+  map=L.map('nmMap',{zoomControl:false}).setView([40.9105,-73.7795],15);
+  L.control.zoom({position:'topright'}).addTo(map);
+  /* Keyless Esri imagery: satellite base + road/label overlays (mock-up only) */
+  const ESRI='https://server.arcgisonline.com/ArcGIS/rest/services/',T='/MapServer/tile/{z}/{y}/{x}';
+  const attr='Imagery &copy; Esri, Maxar, Earthstar Geographics &middot; Roads &copy; Esri, HERE, OpenStreetMap contributors';
+  const sat=L.layerGroup([
+    L.tileLayer(ESRI+'World_Imagery'+T,{maxZoom:19,className:'tl-sat',attribution:attr}),
+    L.tileLayer(ESRI+'Reference/World_Transportation'+T,{maxZoom:19,className:'tl-ref'}),
+    L.tileLayer(ESRI+'Reference/World_Boundaries_and_Places'+T,{maxZoom:19})
+  ]).addTo(map);
+  const street=L.tileLayer(ESRI+'World_Street_Map'+T,{maxZoom:19,className:'tl-street',attribution:'&copy; Esri, HERE, Garmin, OpenStreetMap contributors'});
+  L.control.layers({'Satellite':sat,'Street Map':street},null,{position:'topright',collapsed:false}).addTo(map);
+  L.circle(HOME,{radius:400,color:'#b89a5e',weight:1,dashArray:'4 6',fillColor:'#b89a5e',fillOpacity:.06,interactive:false}).addTo(map);
+  L.marker(HOME,{zIndexOffset:1000,title:'Trump Tower New Rochelle',icon:L.divIcon({className:'pin pin-home',iconSize:[48,48],iconAnchor:[24,24],
+    html:`<span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true">${HOME_ICON}</svg></span><span class="lbl">Trump Tower</span>`})})
+    .addTo(map).on('click',()=>select(null,true));
+  markers=PLACES.map((p,i)=>L.marker(p.ll,{title:p.n,alt:p.n,riseOnHover:true,icon:L.divIcon({className:'pin',iconSize:[34,34],iconAnchor:[17,17],html:icoHTML(p.k)})})
+    .on('click',()=>select(i)).addTo(map));
+  applyFilter();
+}
+function renderChips(){
+  nmChips.innerHTML=['all',...Object.keys(CATS)].map(k=>`<button class="chip${k===filter?' on':''}" data-k="${k}" aria-pressed="${k===filter}">${k==='all'?'All Places':CATS[k].label}</button>`).join('');
+}
+function renderList(){
+  nmList.innerHTML=PLACES.map((p,i)=>filter!=='all'&&p.k!==filter?'':
+    `<li><button data-i="${i}" class="${i===active?'on':''}">${icoHTML(p.k)}<span><strong>${p.n}</strong><span class="meta">${CATS[p.k].label} · ${p.min} min walk</span></span></button></li>`).join('');
+}
+function applyFilter(){
+  if(active!=null&&filter!=='all'&&PLACES[active].k!==filter)select(null);
+  renderChips();renderList();
+  if(!map)return;
+  const vis=[];
+  markers.forEach((mk,i)=>{if(filter==='all'||PLACES[i].k===filter){mk.addTo(map);vis.push(PLACES[i].ll)}else mk.remove()});
+  map.flyToBounds(L.latLngBounds([HOME,...vis]).pad(.18),{duration:.6,maxZoom:17});
+}
+const X='<svg viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19"/></svg>';
+function focusOn(ll,zMin){
+  const z=Math.max(map.getZoom(),zMin),pt=map.project(ll,z);
+  if(innerWidth>860)pt.x-=150; else pt.y+=140;
+  map.flyTo(map.unproject(pt,z),z,{duration:.6});
+}
+function select(i,home){
+  markers.forEach(mk=>{const el=mk.getElement();if(el)el.classList.remove('on')});
+  active=i;renderList();
+  if(i==null&&!home){nmCard.classList.remove('show');return}
+  if(home){
+    nmCard.style.setProperty('--c','#16130f');
+    nmCard.innerHTML=`<button class="x" aria-label="Close details">${X}</button><span class="cat"><i></i>The Residence</span><h3>Trump Tower New Rochelle</h3><p class="addr">175 Huguenot Street · New Rochelle, NY 10801</p>
+      <p class="d">A 40-story residential tower at the heart of downtown, linked to New Roc City by skybridge and a short walk from Metro-North.</p>
+      <a class="btn btn-gold" href="#residences" data-close>View Residences</a>`;
+    focusOn(HOME,17);
+  }else{
+    const p=PLACES[i],el=markers[i].getElement();if(el)el.classList.add('on');
+    nmCard.style.setProperty('--c',CATS[p.k].c);
+    nmCard.innerHTML=`<button class="x" aria-label="Close details">${X}</button><span class="cat"><i></i>${CATS[p.k].label}</span><h3>${p.n}</h3><p class="addr">${p.a} · New Rochelle, NY</p>
+      <p class="d">${p.d}</p>
+      <div class="walk"><span><b>${p.min} min</b><small>Walk</small></span><span><b>${fmtMi(p.m)}</b><small>From the Tower</small></span></div>
+      <a class="btn btn-gold" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent('175 Huguenot St, New Rochelle, NY')}&destination=${encodeURIComponent(p.n+', '+p.a+', New Rochelle, NY')}&travelmode=walking">Walking Directions</a>`;
+    focusOn(p.ll,16);
+  }
+  nmCard.classList.add('show');
+}
+nmChips.addEventListener('click',e=>{const b=e.target.closest('.chip');if(b){filter=b.dataset.k;applyFilter()}});
+const lt=document.getElementById('nmListToggle');
+nmList.addEventListener('click',e=>{const b=e.target.closest('button[data-i]');if(b){select(+b.dataset.i);nm.classList.remove('list-open');lt.textContent='Show list';lt.setAttribute('aria-expanded','false')}});
+nmCard.addEventListener('click',e=>{if(e.target.closest('.x'))select(null);if(e.target.closest('[data-close]'))closeMap()});
+lt.addEventListener('click',()=>{const o=nm.classList.toggle('list-open');lt.textContent=o?'Hide list':'Show list';lt.setAttribute('aria-expanded',o)});
+
+function openMap(){
+  lastFocus=document.activeElement;
+  nm.classList.add('open');nm.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';
+  document.getElementById('nmClose').focus();
+  renderChips();renderList();
+  loadLeaflet().then(()=>{if(!map)buildMap();setTimeout(()=>map.invalidateSize(),460)})
+    .catch(()=>{document.getElementById('nmMap').innerHTML='<p style="padding:40px;text-align:center">The map could not load. Check your connection and try again.</p>'});
+}
+function closeMap(){
+  nm.classList.remove('open');nm.setAttribute('aria-hidden','true');document.body.style.overflow='';
+  if(lastFocus&&lastFocus.focus)lastFocus.focus();
+}
+document.getElementById('nmClose').addEventListener('click',closeMap);
+addEventListener('keydown',e=>{if(e.key==='Escape'&&nm.classList.contains('open'))closeMap()});
+document.querySelectorAll('a[href="#neighborhood"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();openMap()}));
+</script>
+</body>
+</html>
